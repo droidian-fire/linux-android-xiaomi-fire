@@ -24,11 +24,14 @@ DEVICE_MODEL = fire
 # DEVICE_PLATFORM = platform
 
 # Marketing-friendly full-name. This will be used inside package descriptions
-DEVICE_FULL_NAME = Xiaomi Redmi 12
+DEVICE_FULL_NAME = Xiaomi Redmi 12 4G
 
 # Whether to use configuration fragments to augment the kernel configuration.
 # If unsure, keep this to 0.
 KERNEL_CONFIG_USE_FRAGMENTS = 1
+
+# Enable kernel config device extra fragments
+# KERNEL_CONFIG_EXTRA_FRAGMENTS = container.config debug.config other.config
 
 # Whether to use diffconfig to generate the device-specific configuration.
 # If you enable this, you should set KERNEL_CONFIG_USE_FRAGMENTS to 1.
@@ -37,6 +40,7 @@ KERNEL_CONFIG_USE_DIFFCONFIG = 0
 
 # The diffconfig to apply. Only used when KERNEL_CONFIG_USE_DIFFCONFIG is
 # enabled.
+
 # KERNEL_PRODUCT_DIFFCONFIG = my_diffconfig
 
 # Defconfig to use
@@ -53,7 +57,7 @@ KERNEL_IMAGE_DTB = arch/arm64/boot/dts/mediatek/mt6768.dtb
 
 # Whether to include a DTB Overlay. Use 0 (no) or 1.
 # GKI devices should set this to 0
-KERNEL_IMAGE_WITH_DTB_OVERLAY = 0
+KERNEL_IMAGE_WITH_DTB_OVERLAY = 1
 
 # Path to the DTB overlay.
 # If you leave this undefined, an attempt to find it automatically
@@ -88,7 +92,7 @@ KERNEL_BOOTIMAGE_SECONDIMAGE_OFFSET = 0xbff88000
 KERNEL_BOOTIMAGE_TAGS_OFFSET = 0x0bc08000
 
 # Specify boot image security patch level if needed
-KERNEL_BOOTIMAGE_PATCH_LEVEL = 2023-12
+#KERNEL_BOOTIMAGE_PATCH_LEVEL = 2023-12
 
 # Specify boot image OS version if needed
 KERNEL_BOOTIMAGE_OS_VERSION = 12.0.0
@@ -119,7 +123,7 @@ KERNEL_INITRAMFS_COMPRESSION = gz
 # Whether to build a flashable vbmeta.img. Please note that currently
 # only empty vbmeta images (disabling verified boot) can be generated.
 # Use 0 (no) or 1 (default).
-DEVICE_VBMETA_REQUIRED = 0
+DEVICE_VBMETA_REQUIRED = 1
 
 # Samsung devices require a special flag. Enable the following if your
 # device is a Samsung device that requires flag 0 to be present
@@ -198,14 +202,20 @@ BUILD_LLVM = 1
 # Set to 1 to skip modules packaging if CONFIG_MODULES is disabled in defconfig 
 BUILD_SKIP_MODULES = 0
 
+# Set clang version
+CLANG_VERSION = clang-11.0.1-r383902
+# Set to 1 to use a manually installed toolchain
+# Remember to update the path in BUILD_PATH
+CLANG_CUSTOM = 1 
+
 # Extra paths to prepend to the PATH variable. You'll probably want
 # to specify the clang path here (the default).
-BUILD_PATH = /usr/lib/llvm-android-10.0-r370808/bin
+BUILD_PATH = /buildd/sources/xiaomi/fire/linux-android-xiaomi-fire/clang/
 
 # Extra packages to add to the Build-Depends section. Mainline builds
 # can have this section empty, unless cross-building.
 # The default is enough to install the Android toolchain, including clang.
-DEB_TOOLCHAIN = linux-initramfs-halium-generic:arm64, binutils-aarch64-linux-gnu, clang-android-6.0-4691093, gcc-4.9-aarch64-linux-android, g++-4.9-aarch64-linux-android, libgcc-4.9-dev-aarch64-linux-android-cross, clang-android-10.0-r370808
+DEB_TOOLCHAIN = linux-initramfs-halium-generic:arm64, binutils-aarch64-linux-gnu, libgcc-4.9-dev-aarch64-linux-android-cross
 
 # Where we're building on
 DEB_BUILD_ON = amd64
